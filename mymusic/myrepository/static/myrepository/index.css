@@ -70,3 +70,10 @@ body {
 .favorite .glyphicon-star{
 	color: #d58512;
 }
+
+
+#table-detail th
+{
+    text-align:right;
+}
+

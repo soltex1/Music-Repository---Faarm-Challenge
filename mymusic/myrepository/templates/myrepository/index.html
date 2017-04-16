@@ -51,14 +51,14 @@
 				          	<td>-</td>
 				        {% endif %}
  						
- 						{% if album.lending %} 
+ 						 {% if album.lending %} 
 						 	 <td class="available"> <i class="glyphicon glyphicon-remove"></i> </td>
 						 {% else %}
 						 	 <td class="available"> <i class="glyphicon glyphicon-ok"></i> </td>
 						 {% endif %}
 
 				       	<td>
-					     	<a href="{% url 'index' %}">
+					     	<a href="{% url 'detail' album.id %}">
 					     		<button type="button"  class="btn btn-default">
 					     			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					     		</button>
