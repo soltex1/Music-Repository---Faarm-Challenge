@@ -11,8 +11,8 @@ from django.contrib import messages
 from django.utils import timezone
 
 
+
 def index(request):
-	messages.add_message(request, messages.INFO, 'Hello world.')
 	all_albums = Album.objects.all()
 	context = {'all_albums': all_albums}
 	return render(request, 'myrepository/index.html', context)
@@ -39,3 +39,16 @@ def create(request):
 	else:
 		form = AlbumForm()
 		return render(request, 'myrepository/album_create.html', {'form':form})
+
+def delete(request, album_id):
+	album = Album.objects.get(id = album_id)
+	context = {'album': album}
+	if request.method == "POST":
+		message = 'Album ' + str(album.id) + ' with title ['+str(album.title)+'] was removed successfully!'
+
+		album.delete()
+		messages.add_message(request, messages.ERROR, message)
+
+		return redirect('index')
+	else:
+		return render(request, 'myrepository/album_delete.html', context)

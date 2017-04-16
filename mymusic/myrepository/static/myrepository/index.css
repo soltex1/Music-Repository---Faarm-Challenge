@@ -77,3 +77,12 @@ body {
     text-align:right;
 }
 
+.messages{
+	text-decoration-color: green;
+	border: 1px solid green;
+	list-style-type: none;
+}
+
+.messages .error {
+	color: green;
+}

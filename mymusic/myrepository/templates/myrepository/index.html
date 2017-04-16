@@ -17,6 +17,14 @@
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> new album
 			</button>
 		</a><br><br>
+		
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
 		<table class="table table-responsive">
 			<thead>
@@ -64,7 +72,7 @@
 					     		</button>
 					       	</a>
 
-				       		<a href="{% url 'index' %}">
+				       		<a href="{% url 'delete' album.id %}">
 				       			<button type="button" class="btn btn-danger">
 				       				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				       			</button>
