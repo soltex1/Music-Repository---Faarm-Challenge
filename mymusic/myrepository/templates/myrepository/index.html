@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>	
+  	<link rel="stylesheet" type="text/css" href="{% static 'myrepository/index.css' %}" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  </head>
+
+<body>
+	{% include "myrepository/header.html" %}
+	<div class="container">
+		<div class="panel panel-default panel-height", id="panel-admin">
+		<a href="{% url 'index' %}" class="top-menu">
+			<button type="button" class="btn btn-success btn-xs">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> new album
+			</button>
+		</a><br><br>
+
+		<table class="table table-responsive">
+			<thead>
+				<tr>
+		        	<th><a href="?sort=id">#</a></th>
+		        	<th><a href="?sort=name">Title</a></th>
+		        	<th>Album Date</th>
+		        	<th>Publication Date</th>
+		        	<th>Format</th>
+		        	<th>Favorite</th>
+		        	<th>Available</th>
+		        	<th>Actions</th>
+		        </tr>
+		    </thead>
+
+		    <tbody>
+		    	{% for album in all_albums %}
+			    	<tr>
+			    		<td>{{ album.id }}</td>
+			    		<td><a href="{% url 'index' %}">{{ album.title }}</a></td>
+			    		<td>{{ album.c_date.year }}</td>
+			    		<td>{{ album.a_date.year }}</td>
+			    		{% if album.types == 'dg' %} 
+			    			<td>Digital</td>
+			    		{% else %} 
+			    			<td>Physical</td>
+			    		{% endif %}
+				        
+				        {% if album.favorite == True %}
+				        	<td class="favorite"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
+				        {% else %}
+				          	<td>-</td>
+				        {% endif %}
+ 						
+ 						{% if album.lending %} 
+						 	 <td class="available"> <i class="glyphicon glyphicon-remove"></i> </td>
+						 {% else %}
+						 	 <td class="available"> <i class="glyphicon glyphicon-ok"></i> </td>
+						 {% endif %}
+
+				       	<td>
+					     	<a href="{% url 'index' %}">
+					     		<button type="button"  class="btn btn-default">
+					     			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					     		</button>
+					       	</a>
+
+				       		<a href="{% url 'index' %}">
+				       			<button type="button" class="btn btn-danger">
+				       				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				       			</button>
+				       		</a>
+
+				       		<a href="{% url 'index' %}">
+				       			<button type="button" class="btn btn-warning">
+				       				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+				       			</button>
+				       		</a>
+						</td>
+					</tr>
+
+				{% empty %}
+		          	<td colspan="7" class="text-center bg-warning">No Album</td>
+		   		{% endfor %}
+		    </tbody>
+		</table>
+	</div>
+ </div>
+
+ </body>
+ </html>

@@ -34,7 +34,7 @@ class Lending(models.Model):
 	c_date = models.DateTimeField('date created')
 
 	def __unicode__(self):
-		return unicode(self.album)
+		return unicode('Yes')
 
 class Artist(models.Model):
 	album = models.ManyToManyField(Album)

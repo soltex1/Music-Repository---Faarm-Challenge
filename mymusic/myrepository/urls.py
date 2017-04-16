@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 from . import views
 
-appname='mymusic'
+appname='myrepository'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
 ]
