@@ -18,23 +18,37 @@ class Album(models.Model):
 	a_date = models.DateTimeField('album date')
 	c_date = models.DateTimeField('date created')
 
-	def __str__(self):
-		return self.title
+	def __unicode__(self):
+		return unicode(self.title)
 
 class Genre(models.Model):
 	name = models.CharField(max_length = 200, unique=True)
 	albums = models.ManyToManyField(Album)
 
-	def __str__(self):
-		return self.name
+	def __unicode__(self):
+		return unicode(self.name)
 	
 class Lending(models.Model):
-	album = models.ForeignKey(Album, on_delete=models.CASCADE, unique=True)
+	album = models.OneToOneField(Album, on_delete=models.CASCADE, primary_key=True)
 	l_date = models.DateTimeField('date lent')
 	c_date = models.DateTimeField('date created')
 
-	def __str__(self):
-		return self.album
+	def __unicode__(self):
+		return unicode(self.album)
+
+class Artist(models.Model):
+	album = models.ManyToManyField(Album)
+	name = models.CharField(max_length = 100, unique=True)
+	c_date = models.DateTimeField('date created')
+
+	def __unicode__(self):
+		return unicode(self.album)
+
+class Track(models.Model):
+	album = models.ManyToManyField(Album)
+	name = models.CharField(max_length = 100)
+	duration = models.TimeField()
+	c_date = models.DateTimeField('date created')
 
 	def __unicode__(self):
 		return unicode(self.album)
