@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>	
+  	<link rel="stylesheet" type="text/css" href="{% static 'myrepository/index.css' %}" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  </head>
+
+<body>
+	{% include "myrepository/header.html" %}
+	<div class="container">
+		<div class="panel panel-default panel-height", id="panel-admin">
+
+			{% block content %}
+			    <h1>New Album</h1>
+			    <form method="POST" class="post-form">{% csrf_token %}
+			         <label for="username">Title:</label> <br> {{ form.title }} <br>
+			         <label for="username">Description:</label> <br> {{ form.description }} <br>
+			         <label for="username">Album Date:</label> <br> {{ form.a_date }} <br>
+			         <label for="username">Favorite:</label> <br> {{ form.favorite }} <br>
+			         <label for="username">Number of Songs:</label> <br> {{ form.n_songs }} <br> <br>
+			        <button type="submit" class="save btn btn-default">Save</button> 
+			    </form>
+			{% endblock %}
+
+			<a href="{% url 'index' %}" class="top-menu">
+			<button type="button" class="btn btn-default btn-xs">
+					<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> go back
+			</button>
+				</a><br><br>
+		</div>
+
+	</div>
+ </body>
+ </html>

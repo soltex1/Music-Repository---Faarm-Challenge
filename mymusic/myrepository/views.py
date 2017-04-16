@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from myrepository.models import Album
+from myrepository.forms import AlbumForm
 
 from django.contrib import messages
+from django.utils import timezone
+
 
 def index(request):
 	messages.add_message(request, messages.INFO, 'Hello world.')
@@ -17,4 +20,22 @@ def index(request):
 def detail(request, album_id):
 	album = Album.objects.get(id = album_id)
 	context = {'album': album}
-	return render(request, 'myrepository/detail.html', context) 
+	return render(request, 'myrepository/album_detail.html', context)
+
+def create(request):
+	if request.method == "POST":
+		form = AlbumForm(request.POST)
+		if form.is_valid():
+			post = form.save(commit=False)
+			
+			post.title = request.POST.get('title') # or form.cleaned_data['title']
+			post.description = request.POST.get('description')
+			post.a_date = timezone.now()
+			post.c_date = timezone.now()
+			post.n_songs = request.POST.get('n_songs')
+			post.save()
+
+			return redirect('detail', album_id=post.id)
+	else:
+		form = AlbumForm()
+		return render(request, 'myrepository/album_create.html', {'form':form})
