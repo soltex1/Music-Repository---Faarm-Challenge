@@ -3,6 +3,9 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+# rest api framework
+from rest_framework import serializers
+
 class Genre(models.Model):
 	name = models.CharField(max_length = 200, unique=True)
 
@@ -26,7 +29,13 @@ class Album(models.Model):
 	genres = models.ManyToManyField(Genre)
 
 	def __unicode__(self):
-		return unicode(self.title)
+		return unicode(self.title) 
+
+class AlbumSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Album
+		fields = ['title','a_date','c_date','favorite','n_songs','description','genres','types'] 
 
 class Lending(models.Model):
 	album = models.OneToOneField(Album, on_delete=models.CASCADE, primary_key=True)

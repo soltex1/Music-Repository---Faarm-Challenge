@@ -45,8 +45,8 @@
 			    	<tr>
 			    		<td>{{ album.id }}</td>
 			    		<td><a href="{% url 'index' %}">{{ album.title }}</a></td>
-			    		<td>{{ album.c_date.date }}</td>
 			    		<td>{{ album.a_date.date }}</td>
+			    		<td>{{ album.c_date.date }}</td>
 			    		{% if album.types == 'dg' %} 
 			    			<td>Digital</td>
 			    		{% else %} 

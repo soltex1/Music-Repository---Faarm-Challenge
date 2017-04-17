@@ -3,12 +3,17 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
-from myrepository.models import Album, Genre, Lending
-from myrepository.forms import AlbumForm, GenreForm, LendingForm
-
 from django.contrib import messages
 from django.utils import timezone
+
+# rest api framework
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from myrepository.models import Album, AlbumSerializer, Genre, Lending
+from myrepository.forms import AlbumForm, GenreForm, LendingForm
 
 
 def index(request):
@@ -91,7 +96,7 @@ def update(request, album_id):
 			if request.POST.get('teste') is not None:
 				l = Lending(album=post, c_date=timezone.now(), l_date=timezone.now())
 				l.save()
-				
+
 			post.save()
 
 			return redirect('detail', album_id=album.id)
