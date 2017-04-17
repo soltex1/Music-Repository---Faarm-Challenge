@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from myrepository.models import Album, Genre
+from myrepository.models import Album, Genre, Lending
 from myrepository.forms import AlbumForm, GenreForm, LendingForm
 
 from django.contrib import messages
@@ -34,7 +34,12 @@ def create(request):
       post.n_songs = request.POST.get('n_songs')
 
       post.save()
-
+      print '==================0'
+      print request.POST.get('teste')
+      if request.POST.get('teste') is not None:
+      	l = Lending(album=post, c_date=timezone.now(), l_date=timezone.now())
+      	l.save()
+      print '==================0'
       for genre_id in form.cleaned_data['genres']:
       	post.genres.add(Genre.objects.get(name=genre_id))
 
@@ -60,10 +65,18 @@ def delete(request, album_id):
 def update(request, album_id):
 	album = Album.objects.get(id=album_id)
 	form = AlbumForm(request.POST or None, instance=album)
+	# if album has been lent, then change the checkbox value to True
+	lent_number = Lending.objects.filter(album_id=album.id).count()
+	if lent_number > 0:
+		form.fields["teste"].initial = True
 
 	if request.method == "POST":
 		if form.is_valid():
+
 			album.genres.clear()
+
+			if lent_number > 0:
+				album.lending.delete()
 
 			post = form.save(commit=False)
 			post.title = request.POST.get('title') # or form.cleaned_data['title']
@@ -75,6 +88,10 @@ def update(request, album_id):
 			for genre_id in form.cleaned_data['genres']:
 				post.genres.add(Genre.objects.get(name=genre_id))
 
+			if request.POST.get('teste') is not None:
+				l = Lending(album=post, c_date=timezone.now(), l_date=timezone.now())
+				l.save()
+				
 			post.save()
 
 			return redirect('detail', album_id=album.id)
