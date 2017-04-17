@@ -3,6 +3,12 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+class Genre(models.Model):
+	name = models.CharField(max_length = 200, unique=True)
+
+	def __unicode__(self):
+		return unicode(self.name)
+
 class Album(models.Model):
 	DIGITAL = 'dg'
 	PHYSICAL = 'ps'
@@ -17,17 +23,11 @@ class Album(models.Model):
 	n_songs = models.IntegerField()
 	a_date = models.DateTimeField('album date')
 	c_date = models.DateTimeField('date created')
+	genres = models.ManyToManyField(Genre)
 
 	def __unicode__(self):
 		return unicode(self.title)
 
-class Genre(models.Model):
-	name = models.CharField(max_length = 200, unique=True)
-	albums = models.ManyToManyField(Album)
-
-	def __unicode__(self):
-		return unicode(self.name)
-	
 class Lending(models.Model):
 	album = models.OneToOneField(Album, on_delete=models.CASCADE, primary_key=True)
 	l_date = models.DateTimeField('date lent')
