@@ -4,6 +4,8 @@
 
 **Database Engine:** MySQL
 
+**Frameworks:** Django and Django REST framework
+
 **Models:** Album, Genre, Lending, Track, Artist
 
 **Actions:** CRUD for models Album, Genre and Lending
@@ -12,48 +14,48 @@
 
 ## Album Rest API EndPoints [GET, PUT and POST]:
 
-Get all albums:
+- Get all albums:
 ```
 http://127.0.0.1:8000/api/v1/albums
 eg: curl -X GET http://127.0.0.1:8000/api/v1/albums -H "Content-Type: application/json"
 ```
-Get all favorite albums:
+- Get all favorite albums:
 ```
 http://127.0.0.1:8000/api/v1/albums/favorites
 eg: curl -X GET http://127.0.0.1:8000/api/v1/albums/favorites -H "Content-Type: application/json"
 ```
-Get all albums lent:
+- Get all albums lent:
 ```
 http://127.0.0.1:8000/api/v1/albums/lent
 eg: curl -X GET http://127.0.0.1:8000/api/v1/albums/lent -H "Content-Type: application/json"
 ```
-Get all available albums (that aren't lent):
+- Get all available albums (that aren't lent):
 ```
 http://127.0.0.1:8000/api/v1/albums/available
 eg: curl -X GET http://127.0.0.1:8000/api/v1/albums/available -H "Content-Type: application/json"
 ```
-Get album by id:
+- Get album by id:
 ```
 http://127.0.0.1:8000/api/v1/album/:id/
 eg: curl -X GET http://127.0.0.1:8000/api/v1/album/16/ -H "Content-Type: application/json"
 ```
-Post new album:
+- Post new album:
 ```
 http://127.0.0.1:8000/api/v1/albums
 eg: curl -X POST http://127.0.0.1:8000/api/v1/albums -d '{"lending":"16","title":"new album 001","a_date":"1931-04-16T00:00:00Z","c_date":"2017-04-18T16:02:29.406452Z","favorite":false,"n_songs":10,"description":"C","genres":[11],"types":"ps"}' -H "Content-Type: application/json"
 ```
-Update album via id:
+- Update album via id:
 ```
 http://127.0.0.1:8000/api/v1/album/:id/
 eg: curl -X PUT http://127.0.0.1:8000/api/v1/album/27/ -d '{"title": "new album 005"}' -H "Content-Type: application/json"
 ```
-Change album lending value (key must be lending and value equal to album id to be true and false to be false):
+- Change album lending value (key must be lending and value equal to album id to be true and false to be false):
 ```
 http://127.0.0.1:8000/api/v1/album/:id/
 eg: curl -X PUT http://127.0.0.1:8000/api/v1/album/27/ -d  '{"lending": "17"}' -H "Content-Type: application/json"
 eg: curl -X PUT http://127.0.0.1:8000/api/v1/album/27/ -d  '{"lending": "false"}' -H "Content-Type: application/json"
 ```
-Change album favorite value (key favorite must have the value true or false)
+- Change album favorite value (key favorite must have the value true or false):
 ```
 http://127.0.0.1:8000/api/v1/album/:id/
 eg: curl -X PUT http://127.0.0.1:8000/api/v1/album/27/ -d '{"favorite": "false"}' -H "Content-Type: application/json"
@@ -62,22 +64,27 @@ eg: curl -X PUT http://127.0.0.1:8000/api/v1/album/27/ -d '{"favorite": "true"}'
 
 ## Genre Rest API EndPoints [GET, PUT and POST]:
 
-Get all genres:
+- Get all genres:
 ```
-http://127.0.0.1:8000/api/v1/albums
+http://127.0.0.1:8000/api/v1/genres
 eg: curl -X GET http://127.0.0.1:8000/api/v1/genres -H "Content-Type: application/json"
 ```
-Get genre by id:
+- Get genre by id:
 ```
 http://127.0.0.1:8000/api/v1/genre/:id/
 eg: curl -X GET http://127.0.0.1:8000/api/v1/genre/15/ -H "Content-Type: application/json"
 ```
-Change genre by id:
+- Post new genre:
+```
+http://127.0.0.1:8000/api/v1/genres
+eg: curl -X POST http://127.0.0.1:8000/api/v1/genres -d  '{"name": "genre api curl"}' -H "Content-Type: application/json"
+```
+- Change genre by id:
 ```
 http://127.0.0.1:8000/api/v1/genre/:id/
 eg: curl -X PUT http://127.0.0.1:8000/api/v1/genre/15/ -d '{"name": "house progressive"}' -H "Content-Type: application/json"
 ```
-Delete genre by id:
+- Delete genre by id:
 ```
 http://127.0.0.1:8000/api/v1/genre/:id/
 eg: curl -X DELETE http://127.0.0.1:8000/api/v1/genre/15/ -H "Content-Type: application/json"
