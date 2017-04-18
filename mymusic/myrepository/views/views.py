@@ -16,6 +16,14 @@ from myrepository.models import Album, AlbumSerializer, Genre, Lending
 from myrepository.forms import AlbumForm, GenreForm, LendingForm
 
 
+#def index(request, optional=None):
+#	if optional == 'favorites':
+#		all_albums = Album.objects.all().filter(favorite=True)
+#	else:
+#		all_albums = Album.objects.all()
+#	context = {'all_albums': all_albums}
+#	return render(request, 'myrepository/index.html', context)
+
 def index(request):
 	all_albums = Album.objects.all()
 	context = {'all_albums': all_albums}
@@ -61,9 +69,9 @@ def delete(request, album_id):
 		message = 'Album ' + str(album.id) + ' with title ['+str(album.title)+'] was removed successfully!'
 
 		album.delete()
-		messages.add_message(request, messages.ERROR, message)
+		messages.add_message(request, messages.SUCCESS, message)
 
-		return redirect('index')
+		return redirect('albums_index')
 	else:
 		return render(request, 'myrepository/album_delete.html', context)
 
@@ -99,6 +107,6 @@ def update(request, album_id):
 
 			post.save()
 
-			return redirect('detail', album_id=album.id)
+			return redirect('album_detail', album_id=album.id)
 	else:
 		return render(request, 'myrepository/album_update.html',{'form': form})

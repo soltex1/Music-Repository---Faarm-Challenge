@@ -12,6 +12,12 @@ class Genre(models.Model):
 	def __unicode__(self):
 		return unicode(self.name)
 
+class GenreSerializer(serializers.ModelSerializer):
+	
+	class Meta:
+		model = Genre
+		fields = ['name']
+
 class Album(models.Model):
 	DIGITAL = 'dg'
 	PHYSICAL = 'ps'

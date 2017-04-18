@@ -3,9 +3,11 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 
 from myrepository.models import Genre
 from myrepository.forms import GenreForm
+
 
 def index(request):
 	all_genres = Genre.objects.all()
@@ -30,7 +32,7 @@ def detail(request, genre_id):
 	return render(request, 'myrepository/genre_detail.html', context)
 
 def update(request, genre_id):
-	genre = Genre.objects.get(id=genre_id)
+	#genre = Genre.objects.get(id=genre_id)
 	form = GenreForm(request.POST or None, instance=genre)
 
 	if request.method == "POST":
@@ -38,7 +40,7 @@ def update(request, genre_id):
 			post = form.save(commit=False)
 			post.name = request.POST.get('name') # or form.cleaned_data['title']
 			post.save()
-			return redirect('genre_detail', genre_id=genre.id)
+			return redirect('genre_detail', genre_id=post.id)
 	else:
 		return render(request, 'myrepository/genre_update.html',{'form': form})
 
@@ -47,7 +49,14 @@ def delete(request, genre_id):
 	context = {'genre': genre}
 
 	if request.method == "POST":
-		genre.delete()
-		return redirect('genres_index')
+		if genre.album_set.count() > 0:
+			message = 'this genre is associated with albums, you cant delete'
+			messages.add_message(request, messages.ERROR, message)
+			return redirect('genre_delete', genre.id)
+		else:
+			genre.delete()
+			message = 'genre deleted'
+			messages.add_message(request, messages.SUCCESS, message)
+			return redirect('genres_index')
 	else:
 		return render(request, 'myrepository/genre_delete.html', context)

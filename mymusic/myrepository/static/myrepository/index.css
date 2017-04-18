@@ -81,14 +81,20 @@ body {
     text-align:left;
 }
 
-.messages{
-	text-decoration-color: green;
-	border: 1px solid green;
+.messages {
 	list-style-type: none;
 }
 
 .messages .error {
+	color: red;
+	list-style-type: none;
+}
+
+.messages .success {
 	color: green;
+	text-decoration-color: green;
+	
+	list-style-type: none;
 }
 
 .page_subtitle {
@@ -98,4 +104,21 @@ body {
 	font-weight: bold;
 	text-align: center;
 	color: var(--purple-color);
+}
+
+.fav  {
+    color: var(--purple-color);
+    text-decoration: none;
+}
+
+.fav {
+    padding-left: 40px;
+}
+
+.fav:hover 
+{
+     color:var(--purple-color); 
+     text-decoration:none; 
+     text-decoration:underline; 
+     cursor:pointer;  
 }
