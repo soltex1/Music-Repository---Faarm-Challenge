@@ -9,12 +9,13 @@
 
 **Rest API's:** Album and Genre
 
-**Album Rest API EndPoints [GET, PUT and POST]:**
+##Album Rest API EndPoints [GET, PUT and POST]:**
 
 Get all albums:
-
-> http://127.0.0.1:8000/api/v1/albums
-> eg: curl -X GET http://127.0.0.1:8000/api/v1/albums -H "Content-Type: application/json"
+```
+http://127.0.0.1:8000/api/v1/albums
+eg: curl -X GET http://127.0.0.1:8000/api/v1/albums -H "Content-Type: application/json"
+```
 
 Get all favorite albums:
 
