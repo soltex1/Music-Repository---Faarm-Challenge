@@ -1,6 +1,6 @@
 # Music-Repository---Faarm-Challenge
 
-![alt tag](http://imgur.com/a/zOpgG)
+![alt tag](http://i.imgur.com/XpKtPer.png)
 
 **Database Engine:** MySQL
 
