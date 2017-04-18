@@ -1,3 +1,8 @@
+"""
+Models setting for: Genre, Album, Lending, Artist and Lending
+
+"""
+
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
@@ -13,7 +18,6 @@ class Genre(models.Model):
 		return unicode(self.name)
 
 class GenreSerializer(serializers.ModelSerializer):
-	
 	class Meta:
 		model = Genre
 		fields = ['name']
@@ -38,7 +42,6 @@ class Album(models.Model):
 		return unicode(self.title) 
 
 class AlbumSerializer(serializers.ModelSerializer):
-
 	class Meta:
 		model = Album
 		fields = ['id','lending','title','a_date','c_date','favorite','n_songs','description','genres','types'] 

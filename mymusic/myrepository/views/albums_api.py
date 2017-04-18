@@ -1,10 +1,16 @@
+"""
+Settings and all classes/functions for the Album Rest API
+
+"""
+
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.http import Http404
 from django.utils import timezone
 
-# rest api framework
+# rest api framework imports
+
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -19,6 +25,7 @@ class AlbumList(APIView):
 		album_serializer = AlbumSerializer(album, many=True)
 		return Response(album_serializer.data)
 
+	''' post an album '''
 	def post(self, request, format=None):
 		serializer = AlbumSerializer(data=request.data)
 		if serializer.is_valid():
@@ -55,16 +62,18 @@ class AlbumDetail(APIView):
 		except:
 			raise Http404
 
+	''' get an album instance by id '''
 	def get(self, request, album_id, format=None):
 		album = self.get_object(album_id)
 		album_serializer = AlbumSerializer(album)
 		return Response(album_serializer.data)
 
-	''' update an album instance by given a dictionary with the fields '''
+	''' update an album instance by given a dictionary with the fields (can be partial) '''
 	def put(self, request, album_id, format=None):
 		album = self.get_object(album_id)
 		album_serializer = AlbumSerializer(album, data=request.data, partial=True)
-				
+		
+		# update lending in case request has that key
 		if 'lending' in request.data:
 			if request.data['lending'] == album_id:
 				lending = Lending(album=album, c_date=timezone.now(), l_date=timezone.now())
@@ -79,6 +88,8 @@ class AlbumDetail(APIView):
 	''' remove an album completely or only the lending value by giving a dictionary with key lending and value '''
 	def delete(self, request, album_id, format=None):
 		album = self.get_object(album_id)
+
+		# if we remove an album, we should also remove the lending rows associated 
 		if 'lending' in request.data:
 			if request.data['lending'] == 'false':
 				Lending.objects.filter(album_id=album.id).delete()

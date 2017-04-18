@@ -1,3 +1,14 @@
+"""
+Settings and all classes/functions for the Album
+
+index - shows all albums
+detail - show an album by id
+create - create a new album
+delete - delete an album by id
+update - update an album by id
+
+"""
+
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
@@ -6,23 +17,8 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.utils import timezone
 
-# rest api framework
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.views import APIView
-
 from myrepository.models import Album, AlbumSerializer, Genre, Lending
-from myrepository.forms import AlbumForm, GenreForm, LendingForm
-
-
-#def index(request, optional=None):
-#	if optional == 'favorites':
-#		all_albums = Album.objects.all().filter(favorite=True)
-#	else:
-#		all_albums = Album.objects.all()
-#	context = {'all_albums': all_albums}
-#	return render(request, 'myrepository/index.html', context)
+from myrepository.forms import AlbumForm
 
 def index(request):
 	all_albums = Album.objects.all()
@@ -39,20 +35,18 @@ def create(request):
     form = AlbumForm(request.POST) 
     if form.is_valid(): 
       post = form.save(commit=False) 
-       
       post.title = request.POST.get('title') # or form.cleaned_data['title'] 
       post.description = request.POST.get('description') 
-      #post.a_date = timezone.now() 
       post.c_date = timezone.now() 
       post.n_songs = request.POST.get('n_songs')
-
       post.save()
-      print '==================0'
-      print request.POST.get('teste')
+
+      # if the request has the key 'teste' its means that we selected the field lending and it needs to be added
       if request.POST.get('teste') is not None:
-      	l = Lending(album=post, c_date=timezone.now(), l_date=timezone.now())
-      	l.save()
-      print '==================0'
+      	lending = Lending(album=post, c_date=timezone.now(), l_date=timezone.now())
+      	lending.save()
+
+      # adding each genre selected to album
       for genre_id in form.cleaned_data['genres']:
       	post.genres.add(Genre.objects.get(name=genre_id))
 
@@ -67,10 +61,8 @@ def delete(request, album_id):
 
 	if request.method == "POST":
 		message = 'Album ' + str(album.id) + ' with title ['+str(album.title)+'] was removed successfully!'
-
-		album.delete()
 		messages.add_message(request, messages.SUCCESS, message)
-
+		album.delete()
 		return redirect('albums_index')
 	else:
 		return render(request, 'myrepository/album_delete.html', context)
@@ -78,35 +70,36 @@ def delete(request, album_id):
 def update(request, album_id):
 	album = Album.objects.get(id=album_id)
 	form = AlbumForm(request.POST or None, instance=album)
-	# if album has been lent, then change the checkbox value to True
 	lent_number = Lending.objects.filter(album_id=album.id).count()
+
+	# if album has been lent, then change the checkbox value to True
 	if lent_number > 0:
 		form.fields["teste"].initial = True
 
 	if request.method == "POST":
 		if form.is_valid():
-
+			# delete all genres from album
 			album.genres.clear()
-
+			# delete lending value if exists
 			if lent_number > 0:
 				album.lending.delete()
 
 			post = form.save(commit=False)
-			post.title = request.POST.get('title') # or form.cleaned_data['title']
+			post.title = request.POST.get('title') 
 			post.description = request.POST.get('description')
-			#print form['a_date']
-			#post.a_date = form['a_date']
 			post.c_date = timezone.now()
 			post.n_songs = request.POST.get('n_songs')
+
+			# if the request has the key 'teste' its means that we selected the field lending and it needs to be added
+			if request.POST.get('teste') is not None:
+				lending = Lending(album=post, c_date=timezone.now(), l_date=timezone.now())
+				lending.save()
+
+			# adding each genre selected to album
 			for genre_id in form.cleaned_data['genres']:
 				post.genres.add(Genre.objects.get(name=genre_id))
 
-			if request.POST.get('teste') is not None:
-				l = Lending(album=post, c_date=timezone.now(), l_date=timezone.now())
-				l.save()
-
 			post.save()
-
 			return redirect('album_detail', album_id=album.id)
 	else:
 		return render(request, 'myrepository/album_update.html',{'form': form})

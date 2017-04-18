@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>	
-  	<link rel="stylesheet" type="text/css" href="{% static 'myrepository/index.css' %}" />
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  	<link rel="stylesheet" type="text/css" href="{% static 'myrepository/index.css' %}">
+  	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
   </head>
 
@@ -21,21 +21,15 @@
 			<button type="button" class="btn btn-success btn-xs">
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> new album
 			</button>
-		</a>
+		</a> <br> <br> <br>
 
-		<br>
-	
-<br><br>
-
-{% if messages %} 
-<ul class="messages"> 
-    {% for message in messages %} 
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> 
-    {% endfor %} 
-</ul> 
-{% endif %} 
-
-
+		{% if messages %} 
+		<ul class="messages"> 
+		    {% for message in messages %} 
+		    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> 
+		    {% endfor %} 
+		</ul> 
+		{% endif %} 
 
 		<table class="table table-responsive">
 			<thead>
@@ -68,12 +62,12 @@
 				        {% else %}
 				          	<td>-</td>
 				        {% endif %}
- 						
- 						 {% if album.lending %} 
+
+				        {% if album.lending %} 
 						 	 <td class="available"> <i class="glyphicon glyphicon-remove"></i> </td>
-						 {% else %}
+						{% else %}
 						 	 <td class="available"> <i class="glyphicon glyphicon-ok"></i> </td>
-						 {% endif %}
+						{% endif %}
 
 				       	<td>
 					     	<a href="{% url 'album_detail' album.id %}">

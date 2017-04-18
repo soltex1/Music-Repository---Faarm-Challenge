@@ -4,7 +4,7 @@
 
 **Database Engine:** MySQL
 
-**Frameworks:** Django and Django REST framework
+**Frameworks:** Django (1.11) and Django REST framework
 
 **Models:** Album, Genre, Lending, Track, Artist
 

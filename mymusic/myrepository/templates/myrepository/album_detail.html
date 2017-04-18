@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>	
-  	<link rel="stylesheet" type="text/css" href="{% static 'myrepository/index.css' %}" />
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  	<link rel="stylesheet" type="text/css" href="{% static 'myrepository/index.css' %}">
+  	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
   </head>
 
 <body>
@@ -24,8 +24,8 @@
 				</tr>	
 				<tr>
 					<th>Title:</th>
-	    			<td>{{ album.title }}</td>
-	    		</tr>
+					<td>{{ album.title }}</td>
+				</tr>
 				<tr>
 					<th>Description:</th>
 					<td>{{ album.description }}</td>
@@ -37,8 +37,8 @@
 				<tr>
 					<th>Favorite:</th>
 					{% if album.favorite == True %}
-				       	<td class="favorite"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
-				    {% else %}
+						<td class="favorite"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
+					{% else %}
 				        <td>-</td>
 				    {% endif %}
 				</tr>

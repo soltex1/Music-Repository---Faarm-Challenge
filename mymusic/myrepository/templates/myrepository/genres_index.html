@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>	
-  	<link rel="stylesheet" type="text/css" href="{% static 'myrepository/index.css' %}" />
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  	<link rel="stylesheet" type="text/css" href="{% static 'myrepository/index.css' %}">
+  	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
   </head>
 
@@ -21,13 +21,13 @@
 			</button>
 		</a> <br> <br>
 		
-{% if messages %} 
-<ul class="messages"> 
-    {% for message in messages %} 
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> 
-    {% endfor %} 
-</ul> 
-{% endif %} 
+		{% if messages %} 
+		<ul class="messages"> 
+		    {% for message in messages %} 
+		    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> 
+		    {% endfor %} 
+		</ul> 
+		{% endif %} 
 
 		<table class="table table-responsive">
 			<thead>
@@ -63,7 +63,7 @@
 					</tr>
 
 				{% empty %}
-		          	<td colspan="7" class="text-center bg-warning">No Genres</td>
+					<td colspan="7" class="text-center bg-warning">No Genres</td>
 		   		{% endfor %}
 
 		    </tbody>
