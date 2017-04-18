@@ -17,64 +17,59 @@
 			{% block content %}
 			    <h1 class="page_subtitle">UPDATE ALBUM</h1>
 
-
-
 			    <form method="POST" class="post-form">{% csrf_token %}
-        		
+	    			<table id="table-detail" class="table table-responsive">	
+						<tr>
+							<th>Title:</th>
+			    			<td>{{ form.title }}</td>
+			    		</tr>
+			    		<tr>
+							<th>Description:</th>
+			    			<td>{{ form.description }}</td>
+			    		</tr>
+			    		<tr>
+							<th>Album Date:</th>
+			    			<td>{{ form.a_date }}</td>
+			    		</tr>
+			    		<tr>
+							<th>Favorite:</th>
+			    			<td>{{ form.favorite }}</td>
+			    		</tr>		    		
+			    		<tr>
+							<th>Number of Songs:</th>
+			    			<td>{{ form.n_songs }}</td>
+			    		</tr>
+			    		<tr>
+							<th>Genres:</th>
+			    			<td>{{ form.genres }}</td>
+			    		</tr>
+			    		<tr>
+							<th>Type:</th>
+			    			<td>{{ form.types }}</td>
+			    		</tr>
+			    		<tr>
+							<th>Lent?</th>
+			    			<td>{{ form.teste }}</td>
+			    		</tr>
+		    		</table>
 
-    			<table id="table-detail" class="table table-responsive">	
-					<tr>
-						<th>Title:</th>
-		    			<td>{{ form.title }}</td>
-		    		</tr>
-		    		<tr>
-						<th>Description:</th>
-		    			<td>{{ form.description }}</td>
-		    		</tr>
-		    		<tr>
-						<th>Album Date:</th>
-		    			<td>{{ form.a_date }}</td>
-		    		</tr>
-		    		<tr>
-						<th>Favorite:</th>
-		    			<td>{{ form.favorite }}</td>
-		    		</tr>		    		
-		    		<tr>
-						<th>Number of Songs:</th>
-		    			<td>{{ form.n_songs }}</td>
-		    		</tr>
-		    		<tr>
-						<th>Genres:</th>
-		    			<td>{{ form.genres }}</td>
-		    		</tr>
-		    		<tr>
-						<th>Type:</th>
-		    			<td>{{ form.types }}</td>
-		    		</tr>
-		    		<tr>
-						<th>Lent?</th>
-		    			<td>{{ form.teste }}</td>
-		    		</tr>
-	    		</table>
-
-    				<a href="{% url 'create' %}" class="top-menu">
-			<button type="submit" class="btn btn-success btn-xs">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> update album
-			</button></a>
+		    		<a href="{% url 'album_update' form.id %}" class="top-menu">
+		    			<button type="submit" class="btn btn-success btn-xs">
+		    				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> update album
+						</button>
+					</a>
     			</form>
 
 			{% endblock %}
-<br> <br>
-			<a href="{% url 'index' %}" class="top-menu">
+			<br> <br>
+			
+			<a href="{% url 'albums_index' %}" class="top-menu">
 			<button type="button" class="btn btn-default btn-xs">
 					<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> go back
 			</button>
-				</a>
+			</a>
 
-			
-		
 		</div>
-
 	</div>
  </body>
  </html>

@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>	
+  	<link rel="stylesheet" type="text/css" href="{% static 'myrepository/index.css' %}" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  </head>
+
+<body>
+	{% include "myrepository/header.html" %}
+	<div class="container">
+		<div class="panel panel-default panel-height", id="panel-admin">
+
+			{% block content %}
+
+			    <h1>New Genre</h1>
+
+			    <form method="POST" class="post-form">{% csrf_token %}
+			    	<label for="username">Name:</label> <br> {{ form.name }} <br>
+			        <button type="submit" class="save btn btn-default">Save</button> 
+			    </form>
+       				
+			{% endblock %}
+
+			<a href="{% url 'genres_index' %}" class="top-menu">
+				<button type="button" class="btn btn-default btn-xs">
+					<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> go back
+				</button>
+			</a><br><br>
+
+		</div>
+	</div>
+ </body>
+ </html>
