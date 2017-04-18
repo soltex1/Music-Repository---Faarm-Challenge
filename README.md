@@ -59,3 +59,26 @@ http://127.0.0.1:8000/api/v1/album/:id/
 eg: curl -X PUT http://127.0.0.1:8000/api/v1/album/27/ -d '{"favorite": "false"}' -H "Content-Type: application/json"
 eg: curl -X PUT http://127.0.0.1:8000/api/v1/album/27/ -d '{"favorite": "true"}' -H "Content-Type: application/json"
 ```
+
+## Genre Rest API EndPoints [GET, PUT and POST]:
+
+Get all genres:
+```
+http://127.0.0.1:8000/api/v1/albums
+eg: curl -X GET http://127.0.0.1:8000/api/v1/genres -H "Content-Type: application/json"
+```
+Get genre by id:
+```
+http://127.0.0.1:8000/api/v1/genre/:id/
+eg: curl -X GET http://127.0.0.1:8000/api/v1/genre/15/ -H "Content-Type: application/json"
+```
+Change genre by id:
+```
+http://127.0.0.1:8000/api/v1/genre/:id/
+eg: curl -X PUT http://127.0.0.1:8000/api/v1/genre/15/ -d '{"name": "house progressive"}' -H "Content-Type: application/json"
+```
+Delete genre by id:
+```
+http://127.0.0.1:8000/api/v1/genre/:id/
+eg: curl -X DELETE http://127.0.0.1:8000/api/v1/genre/15/ -H "Content-Type: application/json"
+```
