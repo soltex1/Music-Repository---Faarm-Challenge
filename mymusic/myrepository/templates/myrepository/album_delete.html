@@ -14,20 +14,29 @@
 		<div class="panel panel-default panel-height", id="panel-admin">
 
 			{% block content %}
-				<h1>DELETE Album: {{album.id}}??</h1>
-				<a href="{% url 'index'%}">	<button type="button"><span class="glyphicon glyphicon-minus" aria-hidden="true" ></span>NO</button></a>
-				<form method="POST" class="post-form">{% csrf_token %}
-	       		 	{{ form.as_p }} 
-	       		 	<button type="submit" class="save btn btn-default">delete</button>
-	   			 </form>
-				   
-			{% endblock %}
+			    <h1 class="page_subtitle">DELETE ALBUM</h1>
+				<h3>Are you sure you want to delete album: {{album.id}}??</h3>
 
+<a href="{% url 'create' %}" class="top-menu">
+			
+			<form method="POST" class="post-form">{% csrf_token %}
+	       		 	{{ form.as_p }} 
+	       		 	<button type="submit" class="btn btn-danger btn-xs">
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> remover
+			</button>
+
+	   			 </form>
+		</a>
+<br> <br>
 			<a href="{% url 'index' %}" class="top-menu">
 				<button type="button" class="btn btn-default btn-xs">
 						<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> go back
 				</button>
-			</a><br><br>
+			</a>
+				
+				   
+			{% endblock %}
+
 		</div>
 	</div>
  </body>

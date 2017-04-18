@@ -9,7 +9,9 @@
   </head>
 
 <body>
+
 	{% include "myrepository/header.html" %}
+
 	<div class="container">
 		<div class="panel panel-default panel-height", id="panel-admin">
 		<a href="{% url 'create' %}" class="top-menu">
@@ -18,21 +20,14 @@
 			</button>
 		</a><br><br>
 
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+
 
 		<table class="table table-responsive">
 			<thead>
 				<tr>
-		        	<th><a href="?sort=id">#</a></th>
-		        	<th><a href="?sort=name">Title</a></th>
+		        	<th>ID</th>
+		        	<th>Title</th>
 		        	<th>Album Date</th>
-		        	<th>Publication Date</th>
 		        	<th>Format</th>
 		        	<th>Favorite</th>
 		        	<th>Available</th>
@@ -44,9 +39,9 @@
 		    	{% for album in all_albums %}
 			    	<tr>
 			    		<td>{{ album.id }}</td>
-			    		<td><a href="{% url 'index' %}">{{ album.title }}</a></td>
+			    		<td>{{ album.title }}</td>
 			    		<td>{{ album.a_date.date }}</td>
-			    		<td>{{ album.c_date.date }}</td>
+			    		
 			    		{% if album.types == 'dg' %} 
 			    			<td>Digital</td>
 			    		{% else %} 
@@ -70,10 +65,9 @@
 					     		<button type="button"  class="btn btn-default">
 					     			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					     		</button>
-					       	</a>
 
-				       		<a href="{% url 'delete' album.id %}">
-				       			<button type="button" class="btn btn-danger">
+					     		       		<a href="{% url 'delete' album.id %}">
+				       			<button type="button" class="btn btn-danger ">
 				       				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				       			</button>
 				       		</a>

@@ -71,10 +71,14 @@ body {
 	color: #d58512;
 }
 
-
 #table-detail th
 {
     text-align:right;
+}
+
+#table-detail td
+{
+    text-align:left;
 }
 
 .messages{
@@ -85,4 +89,13 @@ body {
 
 .messages .error {
 	color: green;
+}
+
+.page_subtitle {
+	border: 1px solid var(--purple-color);
+	padding: 10px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	color: var(--purple-color);
 }
