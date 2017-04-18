@@ -35,7 +35,7 @@ class AlbumSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Album
-		fields = ['title','a_date','c_date','favorite','n_songs','description','genres','types'] 
+		fields = ['id','lending','title','a_date','c_date','favorite','n_songs','description','genres','types'] 
 
 class Lending(models.Model):
 	album = models.OneToOneField(Album, on_delete=models.CASCADE, primary_key=True)

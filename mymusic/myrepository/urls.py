@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from myrepository.views import views
-from myrepository.views import AlbumList, AlbumDetail
+from myrepository.views import AlbumList, AlbumListFavorites, AlbumListLent, AlbumListAvailable, AlbumDetail
 
 appname='myrepository'
 urlpatterns = [
@@ -13,5 +13,8 @@ urlpatterns = [
 
   	# rest api urls
     url(r'^api/v1/albums$', AlbumList.as_view()),
+    url(r'^api/v1/albums/favorites$', AlbumListFavorites.as_view()),
+    url(r'^api/v1/albums/lent$', AlbumListLent.as_view()),
+    url(r'^api/v1/albums/available$', AlbumListAvailable.as_view()),
     url(r'^api/v1/album/(?P<album_id>\d+)/$', AlbumDetail.as_view()),
 ]
