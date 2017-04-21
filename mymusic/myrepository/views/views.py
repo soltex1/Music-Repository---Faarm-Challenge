@@ -8,7 +8,9 @@ delete - delete an album by id
 update - update an album by id
 
 """
+ 
 
+ 
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
@@ -18,7 +20,7 @@ from django.contrib import messages
 from django.utils import timezone
 
 from myrepository.models import Album, AlbumSerializer, Genre, Lending
-from myrepository.forms import AlbumForm
+from myrepository.forms import AlbumForm, GenreForm, LendingForm 
 
 def index(request):
 	all_albums = Album.objects.all()
@@ -32,13 +34,12 @@ def detail(request, album_id):
 
 def create(request): 
   if request.method == "POST": 
-    form = AlbumForm(request.POST) 
+    form = AlbumForm(request.POST)
+    print form.__dict__["fields"]
     if form.is_valid(): 
       post = form.save(commit=False) 
-      post.title = request.POST.get('title') # or form.cleaned_data['title'] 
-      post.description = request.POST.get('description') 
       post.c_date = timezone.now() 
-      post.n_songs = request.POST.get('n_songs')
+
       post.save()
 
       # if the request has the key 'teste' its means that we selected the field lending and it needs to be added
@@ -50,7 +51,7 @@ def create(request):
       for genre_id in form.cleaned_data['genres']:
       	post.genres.add(Genre.objects.get(name=genre_id))
 
-      return redirect('detail', album_id=post.id) 
+      return redirect('album_detail', album_id=post.id) 
   else: 
     form = AlbumForm() 
     return render(request, 'myrepository/album_create.html', {'form':form})
